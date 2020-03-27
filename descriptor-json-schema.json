@@ -1,0 +1,104 @@
+{
+	"definitions": {
+      "api_object": {
+	  	"type": "object",
+        "properties": {
+          "resource": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+              "items": {
+                "$ref": "#/definitions/http_object"
+              }
+          }
+        },
+        "required": ["resource", "methods"]
+      },
+      "http_object": {
+      	"type": "object",
+        "properties": {
+          "get": {"$ref": "#/definitions/http_props"},
+          "post": {"$ref": "#/definitions/http_props"},
+          "put": {"$ref": "#/definitions/http_props"},
+          "patch": {"$ref": "#/definitions/http_props"},
+          "delete": {"$ref": "#/definitions/http_props"}
+        },
+        "required": ["get", "post", "put", "patch", "delete"]
+      },
+      "http_props": {
+        "type": "object",
+        "properties": {
+          "enabled": {"type": "boolean"},
+          "secured": {"type": "boolean"},
+          "grants": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+        },
+        "required": ["enabled", "secured", "grants"]
+      },
+      "datastore_object": {
+      	"type": "object",
+        "properties": {
+          "tablename": {"type": "string"},
+          "restricted_fields": {"type": "array"},
+          "schema": {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {"$ref": "#/definitions/field_object"}
+              },
+              "primaryKey": {"type": "string"},
+              "foreignKeys": {
+                "type": "array",
+                "items": {"$ref": "#/definitions/foreign_key_object"}
+              }
+            },
+            "required": ["fields", "primaryKey"]
+          },
+        },
+        "required": ["tablename", "restricted_fields", "schema"]
+      },
+      "field_object": {
+        "type": "object",
+      	"properties": {
+       	  "name": {"type": "string"},
+          "title": {"type": "string"},
+          "type": {"type": "string"},
+          "description": {"type": "string"},
+          "required": {"type": "boolean"}
+       	},
+        "required": ["name", "title", "type", "description", "required"]
+      },
+      "foreign_key_object": {
+      	"type": "object",
+        "properties": {
+          "fields": {"type": "array", "items": {"type": "string"}},
+          "reference": {
+            "type": "object",
+            "properties": {
+              "resource": {"type": "string"},
+              "fields": {"type": "array", "items": {"type": "string"}},
+            },
+            "required": ["resource", "fields"]
+          }
+        },
+        "required": ["fields", "reference"]
+      }
+      
+    },
+	"$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://brighthive.io/schemas/descriptor.json",
+    "type": "object",
+    "properties": {
+	    "api":      {
+          "$ref": "#/definitions/api_object"
+        },
+    	"datastore":     {
+		  "$ref": "#/definitions/datastore_object"
+        }
+  	},
+ 	"required": ["api", "datastore"]
+}

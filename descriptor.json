@@ -1,0 +1,54 @@
+{
+	"definitions": {
+      "api_object": {
+	  	"type": "object",
+        "properties": {
+          "resource": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+              "items": {
+                "$ref": "#/definitions/http_object"
+              }
+          }
+        },
+        "required": ["resource", "methods"]
+      },
+      "http_object": {
+      	"type": "object",
+        "properties": {
+          "get": {"$ref": "#/definitions/http_props"},
+          "post": {"$ref": "#/definitions/http_props"},
+          "put": {"$ref": "#/definitions/http_props"},
+          "patch": {"$ref": "#/definitions/http_props"},
+          "delete": {"$ref": "#/definitions/http_props"}
+        },
+        "required": ["get", "post", "put", "patch", "delete"]
+      },
+      "http_props": {
+        "type": "object",
+        "properties": {
+          "enabled": {"type": "boolean"},
+          "secured": {"type": "boolean"},
+          "grants": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+        },
+        "required": ["enabled", "secured", "grants"]
+      }
+    },
+	"$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://brighthive.io/schemas/descriptor.json",
+    "type": "object",
+    "properties": {
+	    "api":      {
+          "$ref": "#/definitions/api_object"
+        },
+    	"datastore":     {
+          "type": "object"
+        }
+  	},
+ 	"required": ["api", "datastore"]
+}

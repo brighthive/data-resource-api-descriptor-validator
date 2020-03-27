@@ -22,7 +22,13 @@
           "post": {"$ref": "#/definitions/http_props"},
           "put": {"$ref": "#/definitions/http_props"},
           "patch": {"$ref": "#/definitions/http_props"},
-          "delete": {"$ref": "#/definitions/http_props"}
+          "delete": {"$ref": "#/definitions/http_props"},
+          "custom": {
+            "type": "array",
+            "items": {
+            	"$ref": "#/definitions/api_object"
+            }
+          }
         },
         "required": ["get", "post", "put", "patch", "delete"]
       },

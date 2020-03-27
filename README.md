@@ -1,0 +1,1 @@
+# data-resource-api-descriptor-validator

@@ -37,6 +37,13 @@
           },
         },
         "required": ["enabled", "secured", "grants"]
+      },
+      "datastore_object": {
+      	"type": "object",
+        "properties": {
+          "tablename": {"type": "string"},
+          "restricted_fields": {"type": "array"},
+        }
       }
     },
 	"$schema": "http://json-schema.org/draft-07/schema#",
@@ -47,7 +54,7 @@
           "$ref": "#/definitions/api_object"
         },
     	"datastore":     {
-          "type": "object"
+		  "$ref": "https://frictionlessdata.io/schemas/table-schema.json"
         }
   	},
  	"required": ["api", "datastore"]
